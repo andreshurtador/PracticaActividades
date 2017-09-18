@@ -8,8 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class RegisterActivity extends AppCompatActivity {
-    private String correo,contrasena,repetirContrasena;
-    private EditText eCorreo, eContrasena,eRepetirContrasena;
+    private String correo, contrasena, repetirContrasena;
+    private EditText eCorreo, eContrasena, eRepetirContrasena;
 
 
     @Override
@@ -28,14 +28,13 @@ public class RegisterActivity extends AppCompatActivity {
         repetirContrasena = eRepetirContrasena.getText().toString();
 
         Intent intent = new Intent();
-        intent.putExtra("correo",correo);
-        intent.putExtra("contrasena",contrasena);
-        setResult(RESULT_OK,intent);
+        intent.putExtra("correo", correo);
+        intent.putExtra("contrasena", contrasena);
+        setResult(RESULT_OK, intent);
         finish();
 
 
     }
-
 
 
 }

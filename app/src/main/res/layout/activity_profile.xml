@@ -4,20 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.therock.practicaactividades.ProfileActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="com.therock.practicaactividades.ProfileActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="30dp"
+        android:layout_weight="0.9"
+        android:src="@drawable/imagen_perfil" />
 
     <TextView
+        android:id="@+id/tCorreoProfile"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tNombre"
+        android:layout_height="0dp"
+        android:layout_weight="0.45"
         android:text="@string/correo"
-        android:textSize="25sp"/>
+        android:textSize="25sp" />
 
     <TextView
+        android:id="@+id/tContrasenaProfile"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tContrasena"
+        android:layout_height="0dp"
+        android:layout_weight="0.45"
         android:text="@string/Contrasena"
-        android:textSize="25sp"/>
+        android:textSize="25sp" />
 </LinearLayout>

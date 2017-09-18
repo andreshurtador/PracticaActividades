@@ -4,46 +4,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.therock.practicaactividades.LoginActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="com.therock.practicaactividades.LoginActivity">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_margin="20dp"
         android:layout_weight="1"
-        android:src="@drawable/logo_ct"
-        android:layout_margin="20dp"/>
+        android:src="@drawable/logo_ct" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_margin="20dp"
         android:layout_weight="1"
-        android:orientation="vertical"
-        android:layout_margin="20dp">
+        android:orientation="vertical">
 
         <EditText
+            android:id="@+id/eCorreo"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:hint="@string/correo"
-            android:id="@+id/eCorreo"/>
+            android:inputType="textEmailAddress" />
+
         <EditText
+            android:id="@+id/eContrasena"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:hint="@string/contrasena"
-            android:id="@+id/eContrasena"/>
+            android:inputType="textPassword" />
+
         <EditText
+            android:id="@+id/eRepetirContrasena"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:hint="@string/repetircontrasena"
-            android:id="@+id/eRepetirContrasena"/>
+            android:inputType="textPassword" />
+
         <Button
+            android:id="@+id/bRegistrar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Registrar"
-            android:id="@+id/bRegistrar"
-            android:onClick="registrar"/>
+            android:onClick="registrar"
+            android:text="Registrar" />
 
 
     </LinearLayout>

@@ -11,7 +11,7 @@ import java.util.TimerTask;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private static  final long SPLASH_DELAY = 3000;
+    private static final long SPLASH_DELAY = 3500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +27,7 @@ public class SplashActivity extends AppCompatActivity {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashActivity.this,LoginActivity.class);
+                Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
 

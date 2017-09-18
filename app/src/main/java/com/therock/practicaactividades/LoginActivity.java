@@ -13,7 +13,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText eCorreo, eContrasena;
     private Button bIniciar;
-    private String correoR,contrasenaR;
+    private String correoR, contrasenaR;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,28 +25,33 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void iniciar(View view) {
-        Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-        intent.putExtra("correo",correoR);
-        intent.putExtra("contrasena",contrasenaR);
-        startActivity(intent);
-        finish();
+        if (correoR.equals(eCorreo.getText().toString()) && contrasenaR.equals(eContrasena.getText().toString())) {
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            intent.putExtra("correo", correoR);
+            intent.putExtra("contrasena", contrasenaR);
+            startActivity(intent);
+            finish();
+        } else {
+            Toast.makeText(this, "Compruebe los campos", Toast.LENGTH_SHORT).show();
+        }
+
 
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode== 1234 && resultCode == RESULT_OK){
+        if (requestCode == 1234 && resultCode == RESULT_OK) {
             correoR = data.getExtras().getString("correo");
             contrasenaR = data.getExtras().getString("contrasena");
-            Toast.makeText(this,correoR ,Toast.LENGTH_SHORT).show();
-            Log.d("correo",correoR);//Verificar en el monitor las variables
-            Log.d("contrasena",contrasenaR);
+            Toast.makeText(this, correoR, Toast.LENGTH_SHORT).show();
+            Log.d("correo", correoR);//Verificar en el monitor las variables
+            Log.d("contrasena", contrasenaR);
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
 
     public void registrese(View view) {
-        Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
-        startActivityForResult(intent,1234);
+        Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+        startActivityForResult(intent, 1234);
     }
 }

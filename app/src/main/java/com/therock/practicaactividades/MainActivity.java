@@ -3,8 +3,10 @@ package com.therock.practicaactividades;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,11 +32,16 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         Intent intent;
-        switch (id){
+        switch (id) {
             case R.id.mPerfil:
-                                break;
+                intent = new Intent(MainActivity.this, ProfileActivity.class);
+                intent.putExtra("correo", correoR);
+                intent.putExtra("contrasena", contrasenaR);
+                startActivity(intent);
+                finish();
+                break;
             case R.id.mcerrar:
-                intent = new Intent(MainActivity.this,LoginActivity.class);
+                intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
                 break;
