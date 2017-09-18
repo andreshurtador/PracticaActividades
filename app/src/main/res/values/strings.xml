@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">PracticaActividades</string>
+    <string name="correo">Correo Electronico </string>
+    <string name="contrasena">Contrasena </string>
+    <string name="registrese">Registrese</string>
+    <string name="repetircontrasena">Repetir Contrasena</string>
+    <string name="Contrasena">Contrasena</string>
+    <string name="perfil">Perfil</string>
+    <string name="cerrar">Cerrar Sesion</string>
+</resources>
