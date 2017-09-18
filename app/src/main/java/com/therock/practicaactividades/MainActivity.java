@@ -33,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         Intent intent;
         switch (id) {
+            case R.id.mprincipal:
+                Toast.makeText(this, "Esta en el menu Principal", Toast.LENGTH_SHORT).show();
+                break;
             case R.id.mPerfil:
                 intent = new Intent(MainActivity.this, ProfileActivity.class);
                 intent.putExtra("correo", correoR);

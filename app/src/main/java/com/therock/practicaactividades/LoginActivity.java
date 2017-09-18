@@ -43,9 +43,6 @@ public class LoginActivity extends AppCompatActivity {
         if (requestCode == 1234 && resultCode == RESULT_OK) {
             correoR = data.getExtras().getString("correo");
             contrasenaR = data.getExtras().getString("contrasena");
-            Toast.makeText(this, correoR, Toast.LENGTH_SHORT).show();
-            Log.d("correo", correoR);//Verificar en el monitor las variables
-            Log.d("contrasena", contrasenaR);
         }
         super.onActivityResult(requestCode, resultCode, data);
     }

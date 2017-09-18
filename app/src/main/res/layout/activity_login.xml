@@ -27,7 +27,8 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:hint="@string/correo"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:textSize="20sp"/>
 
         <EditText
             android:id="@+id/eContrasena"
@@ -35,7 +36,8 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:hint="@string/contrasena"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:textSize="20sp"/>
 
         <Button
             android:id="@+id/bIniciar"

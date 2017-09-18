@@ -11,22 +11,36 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="30dp"
-        android:layout_weight="0.9"
+        android:layout_weight="1"
         android:src="@drawable/imagen_perfil" />
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.3"
+        android:text="@string/miCorreo"
+        android:textSize="20sp"
+        android:layout_marginLeft="10sp"/>
     <TextView
         android:id="@+id/tCorreoProfile"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.45"
+        android:layout_weight="0.3"
         android:text="@string/correo"
-        android:textSize="25sp" />
-
+        android:textSize="20sp"
+        android:layout_marginLeft="10sp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.3"
+        android:text="@string/miContrasena"
+        android:textSize="20sp"
+        android:layout_marginLeft="10sp"/>
     <TextView
         android:id="@+id/tContrasenaProfile"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.45"
-        android:text="@string/Contrasena"
-        android:textSize="25sp" />
+        android:layout_weight="0.3"
+        android:text="@string/contrasena"
+        android:textSize="20sp"
+        android:layout_marginLeft="10sp"/>
 </LinearLayout>

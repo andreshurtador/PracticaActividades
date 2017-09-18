@@ -10,8 +10,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="20dp"
-        android:layout_weight="1"
+        android:layout_weight="0.9"
         android:src="@drawable/logo_ct" />
 
     <LinearLayout
@@ -27,7 +26,8 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:hint="@string/correo"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:textSize="20sp"/>
 
         <EditText
             android:id="@+id/eContrasena"
@@ -35,7 +35,8 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:hint="@string/contrasena"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:textSize="20sp"/>
 
         <EditText
             android:id="@+id/eRepetirContrasena"
@@ -43,7 +44,8 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:hint="@string/repetircontrasena"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:textSize="20sp"/>
 
         <Button
             android:id="@+id/bRegistrar"
