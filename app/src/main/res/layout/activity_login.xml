@@ -44,7 +44,7 @@
             android:layout_weight="1"
             android:text="@string/registrese"
             android:gravity="center_horizontal"
-            android:textColor="@color/blue"
+            android:textColor="@color/black"
             android:onClick="registrese"
             />
 

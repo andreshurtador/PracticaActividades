@@ -11,11 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tNombre"
-        android:text="@string/correo"/>
+        android:text="@string/correo"
+        android:textSize="25sp"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tContrasena"
-        android:text="@string/Contrasena"/>
+        android:text="@string/Contrasena"
+        android:textSize="25sp"/>
 </LinearLayout>
