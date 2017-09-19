@@ -2,11 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/mPerfil"
-        android:title="@string/perfil" />
+        android:id="@+id/mprincipal"
+        android:title="@string/inicio" />
+
     <item
         android:id="@+id/mcerrar"
         android:title="@string/cerrar" />
-
-
 </menu>

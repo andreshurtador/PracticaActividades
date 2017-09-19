@@ -9,5 +9,9 @@
     <string name="legalInformation">Colombia Travel Operator is a legal comercial company based in Medellin. Our RNT number is 19868.</string>
     <string name="miContrasena">Mi Contrasena:</string>
     <string name="miCorreo">Mi Correo Electronico:</string>
-    <string name="principal">Principal</string>
+    <string name="inicio">Inicio</string>
+
+    <string name="facebook_app_id">118650888783081</string>
+    <string name="fb_login_protocol_scheme">fb118650888783081</string>
+
 </resources>

@@ -10,8 +10,8 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="20dp"
-        android:layout_weight="1"
+        android:layout_margin="10dp"
+        android:layout_weight="0.5"
         android:src="@drawable/logo_ct" />
 
     <LinearLayout
@@ -42,9 +42,20 @@
         <Button
             android:id="@+id/bIniciar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_horizontal"
             android:onClick="iniciar"
             android:text="Iniciar" />
+
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/login_button"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -54,6 +65,7 @@
             android:onClick="registrese"
             android:text="@string/registrese"
             android:textColor="@color/black" />
+
 
     </LinearLayout>
 </LinearLayout>
