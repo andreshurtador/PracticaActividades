@@ -9,10 +9,15 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.facebook.login.LoginManager;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 
 public class MainActivity extends AppCompatActivity {
 
     private String correoR, contrasenaR;
+    GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +50,15 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.mcerrar:
+        //organizar los cerrar sesion con las opciones 123 por ejemplo
+                Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                        new ResultCallback<Status>() {
+                            @Override
+                            public void onResult(Status status) {
+                                // ...
+                            }
+                        });
+
                 LoginManager.getInstance().logOut();
                 intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);

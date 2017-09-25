@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "477998441584",
+    "project_id": "firebase-practicaactividades"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:477998441584:android:90059d7ebbd959bb",
+        "android_client_info": {
+          "package_name": "com.therock.practicaactividades"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "477998441584-2g639ekv7bf6upfd0966o25agschj767.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.therock.practicaactividades",
+            "certificate_hash": "ea3ba5f3f054cc53c825be31e3fe55df16ecddfc"
+          }
+        },
+        {
+          "client_id": "477998441584-orqdquftipnfrn93e61dhhs4easth6ec.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGcCbD8MgIxrrUI4Dpywpb1ftHr54gCwo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
