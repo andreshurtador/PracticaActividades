@@ -36,6 +36,10 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 public class LoginActivity extends AppCompatActivity {
+    public static int logway=0;
+    //1. facebook
+    //2.google
+    //3.correo y contrasena
     private LoginButton loginButton;
     private EditText eCorreo, eContrasena;
     private Button bIniciar;
@@ -88,6 +92,8 @@ public class LoginActivity extends AppCompatActivity {
         loginButton = (LoginButton) findViewById(R.id.login_button);
         loginButton.setReadPermissions(Arrays.asList("email"));
 
+
+
         callbackManager = CallbackManager.Factory.create();
 
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
@@ -95,16 +101,13 @@ public class LoginActivity extends AppCompatActivity {
             public void onSuccess(LoginResult loginResult) {
                 goToMain();
                 Toast.makeText(getApplicationContext(), "Login Exitoso", Toast.LENGTH_SHORT).show();
-
-
-            }
+                logway=1;
+               }
 
             @Override
             public void onCancel() {
                 Toast.makeText(getApplicationContext(), "Login Cancelado", Toast.LENGTH_SHORT).show();
-
-
-            }
+}
 
             @Override
             public void onError(FacebookException error) {
@@ -149,6 +152,7 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Compruebe Los Campos", Toast.LENGTH_SHORT).show();
         } else {
             if (correoR.equals(eCorreo.getText().toString()) && contrasenaR.equals(eContrasena.getText().toString())) {
+                logway=3;
                 goToMain();
             } else {
                 Toast.makeText(this, "Compruebe los campos", Toast.LENGTH_SHORT).show();
@@ -181,7 +185,7 @@ public class LoginActivity extends AppCompatActivity {
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
-            Log.d("Nombre Usuario", acct.getDisplayName());
+            logway=2;
             goToMain();
 
         } else {

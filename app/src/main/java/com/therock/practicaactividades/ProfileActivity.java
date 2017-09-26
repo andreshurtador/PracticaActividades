@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.login.LoginManager;
 import com.facebook.login.widget.ProfilePictureView;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -24,12 +26,18 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
-public class ProfileActivity extends AppCompatActivity {
+import static com.therock.practicaactividades.LoginActivity.logway;
 
+public class ProfileActivity extends AppCompatActivity {
+    //1. facebook
+    //2.google
+    //3.correo y contrasena
     private String correoR, contrasenaR;
     private TextView tCorreoProfile, tContrasenaProfile,tlabelMicontrasena;
     private ImageView profilePicture;
     private GoogleApiClient mGoogleApiClient;
+
+    private CallbackManager callbackManager;
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -120,22 +128,28 @@ public class ProfileActivity extends AppCompatActivity {
                 break;
 
             case R.id.mcerrar:
+
                 intent = new Intent(ProfileActivity.this, LoginActivity.class);
-                //cerrar sesion google
-                Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(new ResultCallback<Status>() {
-                    @Override
-                    public void onResult(@NonNull Status status) {
-                        if (status.isSuccess()){
-                            startActivity(intent);
+                if(logway==1){
+                    LoginManager.getInstance().logOut();
+                    startActivity(intent);
+                }else if(logway==2){
+                    //cerrar sesion google
+                    Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(new ResultCallback<Status>() {
+                        @Override
+                        public void onResult(@NonNull Status status) {
+                            if (status.isSuccess()){
+                                startActivity(intent);
+                            }
                         }
-                    }
-                });
+                    });
+                }else if(logway==3){
+                    startActivity(intent);
+                }
 
-
-
-                startActivity(intent);
                 finish();
                 break;
+
             default:
                 break;
         }

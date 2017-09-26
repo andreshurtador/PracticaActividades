@@ -17,8 +17,12 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
-public class MainActivity extends AppCompatActivity {
+import static com.therock.practicaactividades.LoginActivity.logway;
 
+public class MainActivity extends AppCompatActivity {
+    //1. facebook
+    //2.google
+    //3.correo y contrasena
     private String correoR, contrasenaR;
     GoogleApiClient mGoogleApiClient;
 
@@ -70,23 +74,25 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.mcerrar:
                 intent = new Intent(MainActivity.this, LoginActivity.class);
-                //cerrar sesion google
-                Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(new ResultCallback<Status>() {
-                    @Override
-                    public void onResult(@NonNull Status status) {
-                        if (status.isSuccess()){
-                            startActivity(intent);
+                if(logway==1){
+                    LoginManager.getInstance().logOut();
+                    startActivity(intent);
+                }else if(logway==2){
+                    //cerrar sesion google
+                    Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(new ResultCallback<Status>() {
+                        @Override
+                        public void onResult(@NonNull Status status) {
+                            if (status.isSuccess()){
+                                startActivity(intent);
+                            }
                         }
-                    }
-                });
+                    });
+            }else if(logway==3){
+                    startActivity(intent);
+            }
 
-                startActivity(intent);
                 finish();
                 break;
-
-        //organizar los cerrar sesion con las opciones 123 por ejemplo
-
-                //LoginManager.getInstance().logOut();
 
             default:
                 break;
