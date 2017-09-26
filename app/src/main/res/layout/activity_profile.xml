@@ -8,11 +8,13 @@
     tools:context="com.therock.practicaactividades.ProfileActivity">
 
     <ImageView
+        android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="30dp"
         android:layout_weight="1"
         android:src="@drawable/imagen_perfil" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -34,7 +36,8 @@
         android:layout_weight="0.3"
         android:text="@string/miContrasena"
         android:textSize="20sp"
-        android:layout_marginLeft="10sp"/>
+        android:layout_marginLeft="10sp"
+        android:id="@+id/tlabelMicontrasena"/>
     <TextView
         android:id="@+id/tContrasenaProfile"
         android:layout_width="match_parent"
