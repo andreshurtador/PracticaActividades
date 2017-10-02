@@ -1,6 +1,7 @@
 package com.therock.practicaactividades;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,23 +18,41 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
-import static com.therock.practicaactividades.LoginActivity.logway;
 
-public class MainActivity extends AppCompatActivity {
+
+public class MainActivity extends AppCompatActivity{
+    private int optLog;
+    //0. no hay
     //1. facebook
     //2.google
     //3.correo y contrasena
-    private String correoR, contrasenaR;
+    private String correoR, contrasenaR,correoG,nameG,urlG,nameF,urlF,correoF;
     GoogleApiClient mGoogleApiClient;
+    //SharedPreferences prefs;
+    //SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Bundle extras = getIntent().getExtras();
-        correoR = extras.getString("correo");
-        contrasenaR = extras.getString("contrasena");
+        //Bundle extras = getIntent().getExtras();
+        //correoR = extras.getString("correo");
+        //contrasenaR = extras.getString("contrasena");
+
+        Bundle extras = this.getIntent().getExtras();
+        if(extras !=null) {
+            correoR = extras.getString("correo");
+            contrasenaR = extras.getString("password");
+            optLog = extras.getInt("optlog");
+            nameG = extras.getString("nameG");
+            correoG = extras.getString("correoG");
+            urlG = extras.getString("urlG");
+            nameF = extras.getString("nameF");
+            urlF = extras.getString("urlF");
+            correoF = extras.getString("correoF");
+
+        }
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -66,33 +85,53 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.mPerfil:
                 intent = new Intent(MainActivity.this, ProfileActivity.class);
-                intent.putExtra("correo", correoR);
-                intent.putExtra("contrasena", contrasenaR);
+                intent.putExtra("correo",correoR);
+                intent.putExtra("password",contrasenaR);
+                intent.putExtra("optlog",optLog);
+                intent.putExtra("nameG",nameG);
+                intent.putExtra("correoG",correoG);
+                intent.putExtra("urlG",urlG);
+                intent.putExtra("nameF",nameF);
+                intent.putExtra("urlF",urlF);
+                intent.putExtra("correoF",correoF);
                 startActivity(intent);
                 finish();
                 break;
 
             case R.id.mcerrar:
                 intent = new Intent(MainActivity.this, LoginActivity.class);
-                if(logway==1){
+                if(optLog==1){
                     LoginManager.getInstance().logOut();
+                    intent.putExtra("correo",correoR);
+                    intent.putExtra("password",contrasenaR);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
-                }else if(logway==2){
+                    finish();
+                }else if(optLog==2){
                     //cerrar sesion google
                     Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(new ResultCallback<Status>() {
                         @Override
                         public void onResult(@NonNull Status status) {
                             if (status.isSuccess()){
+                                intent.putExtra("correo",correoR);
+                                intent.putExtra("password",contrasenaR);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
-                            }
+                                finish();
+                             }
+                            else {
+                                Toast.makeText(getApplicationContext(),"No se pudo cerrar session",Toast.LENGTH_SHORT).show();}
+
                         }
                     });
-            }else if(logway==3){
+            }else if(optLog==3){
+                    intent.putExtra("correo",correoR);
+                    intent.putExtra("password",contrasenaR);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
-            }
-
-                finish();
-                break;
+                    }
+                    finish();
+                    break;
 
             default:
                 break;

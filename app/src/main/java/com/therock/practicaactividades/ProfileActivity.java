@@ -4,14 +4,12 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 import com.facebook.CallbackManager;
 import com.facebook.login.LoginManager;
@@ -26,30 +24,40 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
-import static com.therock.practicaactividades.LoginActivity.logway;
+import static android.R.attr.resource;
 
-public class ProfileActivity extends AppCompatActivity {
+
+public class ProfileActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
+    private int optLog;
     //1. facebook
     //2.google
     //3.correo y contrasena
-    private String correoR, contrasenaR;
-    private TextView tCorreoProfile, tContrasenaProfile,tlabelMicontrasena;
+    private String correoR, contrasenaR, correoG, nameG, urlG, nameF, urlF, correoF;
+    private TextView tCorreoProfile, tContrasenaProfile;
     private ImageView profilePicture;
     private GoogleApiClient mGoogleApiClient;
 
     private CallbackManager callbackManager;
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_profile);
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_profile);
 
         Bundle extras = getIntent().getExtras();
         correoR = extras.getString("correo");
-        contrasenaR = extras.getString("contrasena");
+        contrasenaR = extras.getString("password");
+        optLog = extras.getInt("optlog");
+        nameG = extras.getString("nameG");
+        correoG = extras.getString("correoG");
+        urlG = extras.getString("urlG");
+        nameF = extras.getString("nameF");
+        urlF = extras.getString("urlF");
+        correoF = extras.getString("correoF");
 
         tCorreoProfile = (TextView) findViewById(R.id.tCorreoProfile);
         tContrasenaProfile = (TextView) findViewById(R.id.tContrasenaProfile);
-        tlabelMicontrasena = (TextView) findViewById(R.id.tlabelMicontrasena);
+
 
         tCorreoProfile.setText(correoR);
         tContrasenaProfile.setText(contrasenaR);
@@ -64,14 +72,30 @@ public class ProfileActivity extends AppCompatActivity {
                 .build();
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this , new GoogleApiClient.OnConnectionFailedListener() {
+                .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
                     @Override
                     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-                        Toast.makeText(getApplicationContext(),"Error de login en Google",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Error de login en Google", Toast.LENGTH_SHORT).show();
                     }
-                } )
+                })
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+
+
+        if (optLog == 1) {
+            tCorreoProfile.setText("Usuario :" + "\n" + nameF);
+            tContrasenaProfile.setText("Correo" + "\n" + correoF);
+            //Glide.with(this).load(urlF).crossFade().placeholder(R.drawable.usuario).into(imagen);
+        } else if (optLog == 2) {
+            tCorreoProfile.setText("Usuario :" + "\n" + nameG);
+            tContrasenaProfile.setText("Correo:" + "\n" + correoG);
+            //Glide.with(this).load(urlG).crossFade().placeholder(R.drawable.usuario).into(imagen);
+        } else if (optLog == 3) {
+            tCorreoProfile.setText("Usuario :" + "\n" + correoR);
+            tContrasenaProfile.setText("Contraseña :" + "\n" + contrasenaR);
+            //profilePicture.setImageResource(R.drawable.usuario);
+
+        }
 
     }
 
@@ -80,10 +104,10 @@ public class ProfileActivity extends AppCompatActivity {
         super.onStart();
 
         OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
-        if (opr.isDone()){
+        if (opr.isDone()) {
             GoogleSignInResult result = opr.get();
             handleSignInResult(result);
-        }else{
+        } else {
             opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
                 @Override
                 public void onResult(@NonNull GoogleSignInResult googleSignInResult) {
@@ -95,15 +119,15 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void handleSignInResult(GoogleSignInResult result) {
-        if(result.isSuccess()) {
+        if (result.isSuccess()) {
             GoogleSignInAccount account = result.getSignInAccount();
 
             tContrasenaProfile.setText(account.getDisplayName());
             tCorreoProfile.setText(account.getEmail());
-            tlabelMicontrasena.setText("Mi usuario");
+
 
             //profilePicture.setText(account.getId());
-        }else{
+        } else {
 
         }
     }
@@ -121,8 +145,15 @@ public class ProfileActivity extends AppCompatActivity {
         switch (id) {
             case R.id.mprincipal:
                 intent = new Intent(ProfileActivity.this, MainActivity.class);
-                intent.putExtra("correo", correoR);
-                intent.putExtra("contrasena", contrasenaR);
+                intent.putExtra("correo",correoR);
+                intent.putExtra("password",contrasenaR);
+                intent.putExtra("optlog",optLog);
+                intent.putExtra("nameG",nameG);
+                intent.putExtra("correoG",correoG);
+                intent.putExtra("urlG",urlG);
+                intent.putExtra("nameF",nameF);
+                intent.putExtra("urlF",urlF);
+                intent.putExtra("correoF",correoF);
                 startActivity(intent);
                 finish();
                 break;
@@ -130,30 +161,44 @@ public class ProfileActivity extends AppCompatActivity {
             case R.id.mcerrar:
 
                 intent = new Intent(ProfileActivity.this, LoginActivity.class);
-                if(logway==1){
+                if (optLog == 1) {
                     LoginManager.getInstance().logOut();
+                    intent.putExtra("correo", correoR);
+                    intent.putExtra("password", contrasenaR);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
-                }else if(logway==2){
+                } else if (optLog == 2) {
                     //cerrar sesion google
                     Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(new ResultCallback<Status>() {
                         @Override
                         public void onResult(@NonNull Status status) {
-                            if (status.isSuccess()){
+                            if (status.isSuccess()) {
+                                intent.putExtra("correo", correoR);
+                                intent.putExtra("password", contrasenaR);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
                             }
                         }
                     });
-                }else if(logway==3){
-                    startActivity(intent);
+                    if (optLog == 3) {
+                        intent.putExtra("correo", correoR);
+                        intent.putExtra("password", contrasenaR);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
+                    finish();
+                    break;
                 }
-
-                finish();
-                break;
 
             default:
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
     }
 }
 
