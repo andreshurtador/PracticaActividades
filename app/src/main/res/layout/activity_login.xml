@@ -10,7 +10,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="5dp"
+        android:layout_margin="10dp"
         android:layout_weight="0.5"
         android:src="@drawable/logo_ct" />
 
@@ -28,7 +28,7 @@
             android:layout_weight="1"
             android:hint="@string/correo"
             android:inputType="textEmailAddress"
-            android:textSize="15sp"/>
+            android:textSize="20sp"/>
 
         <EditText
             android:id="@+id/eContrasena"
@@ -37,16 +37,16 @@
             android:layout_weight="1"
             android:hint="@string/contrasena"
             android:inputType="textPassword"
-            android:textSize="15sp"/>
+            android:textSize="20sp"/>
 
         <Button
             android:id="@+id/bIniciar"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_weight="0.9"
+            android:layout_weight="0.6"
             android:layout_gravity="center_horizontal"
             android:onClick="iniciar"
-            android:text="Iniciar sesion" />
+            android:text="  Iniciar sesion  " />
 
         <com.facebook.login.widget.LoginButton
             android:id="@+id/login_button"
@@ -54,17 +54,17 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp" />
+            android:layout_marginTop="10sp"
+            android:layout_marginBottom="10sp" />
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/sign_in_button"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="0.6"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginTop="10sp"
+            android:layout_marginBottom="10sp"/>
 
         <TextView
             android:layout_width="match_parent"
