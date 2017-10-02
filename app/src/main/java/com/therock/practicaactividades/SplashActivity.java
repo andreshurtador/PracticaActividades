@@ -15,9 +15,8 @@ import java.util.TimerTask;
 public class SplashActivity extends AppCompatActivity {
 
     private static final long SPLASH_DELAY = 3000;
-
-    //SharedPreferences prefs;
-    //SharedPreferences.Editor editor;
+    SharedPreferences prefs;
+    SharedPreferences.Editor editor;
     Intent intent;
 
     @Override
@@ -31,42 +30,35 @@ public class SplashActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_splash);
 
-        //prefs = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
-        //editor = prefs.edit();
+        prefs = getSharedPreferences("SP" , Context.MODE_PRIVATE);
+        editor = prefs.edit();
+        final int optLog = prefs.getInt("optlog",0);
 
 
 
 
-       /* final int optLog = prefs.getInt("logway",0);
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if(optLog == 0) {
-                    intent = new Intent(SplashActivity.this, LoginActivity.class);
-                }else {
-                    intent = new Intent(SplashActivity.this,MainActivity.class);
+
+                if(optLog == 0){
+                    intent = new Intent(SplashActivity.this,LoginActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
-                startActivity(intent);
-                finish();
+                else {Intent intent =new Intent(SplashActivity.this,MainActivity.class);
+
+                    startActivity(intent);
+                    finish();}
+
+
+
+
 
             }
         };
-    */
 
-        TimerTask task = new TimerTask() {
-            @Override
-            public void run() {
-
-
-
-                Intent intent =new Intent(SplashActivity.this,LoginActivity.class);
-
-                startActivity(intent);
-                finish();
-
-            }
-        };
         Timer timer = new Timer();
-        timer.schedule(task, SPLASH_DELAY);
+        timer.schedule(task,SPLASH_DELAY);
     }
 }

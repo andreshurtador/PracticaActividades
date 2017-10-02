@@ -52,8 +52,8 @@ public class LoginActivity extends AppCompatActivity {
     //1.facebook
     //2.google
     //3.correo y contrasena
-   // SharedPreferences prefs;
-   // SharedPreferences.Editor editor;
+    SharedPreferences prefs;
+    SharedPreferences.Editor editor;
     private LoginButton loginButton;
     private EditText eCorreo, eContrasena;
     private Button bIniciar;
@@ -143,8 +143,12 @@ public class LoginActivity extends AppCompatActivity {
 
                         Log.v("lograremos", nameF);
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        optLog = 1;
-                        intent.putExtra("optlog", optLog);
+                        //optLog = 1;
+                        //intent.putExtra("optlog", optLog);
+                        prefs = getSharedPreferences("SP",Context.MODE_PRIVATE);
+                        editor = prefs.edit();
+                        editor.putInt("optlog",1);
+                        editor.commit();
                         intent.putExtra("correo", correoR);
                         intent.putExtra("password", contrasenaR);
                         intent.putExtra("correoF", correoF);
@@ -193,12 +197,17 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Compruebe Los Campos", Toast.LENGTH_SHORT).show();
         } else {
             if (correoR.equals(eCorreo.getText().toString()) && contrasenaR.equals(eContrasena.getText().toString())) {
-                optLog = 3;
+                prefs = getSharedPreferences("SP",Context.MODE_PRIVATE);
+                editor = prefs.edit();
+                //optLog = 3;
+                //almacenamos el valor de optLog
+                editor.putInt("optlog",3);
+                editor.commit();
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("correo", correoR);
                 intent.putExtra("password", contrasenaR);
-                intent.putExtra("optlog",optLog);
+                //intent.putExtra("optlog",optLog);
                 startActivity(intent);
                 finish();
             } else {
@@ -232,14 +241,18 @@ public class LoginActivity extends AppCompatActivity {
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount account = result.getSignInAccount();
-            optLog = 2;
+            //optLog = 2;
             nameG = account.getDisplayName();
             correoG = account.getEmail();
             urlG = account.getPhotoUrl().toString();
 
             Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-            optLog = 2;
-            intent.putExtra("optlog",optLog);
+            prefs = getSharedPreferences("SP",Context.MODE_PRIVATE);
+            editor = prefs.edit();
+            //almacenamos el valor de optLog
+            editor.putInt("optlog",2);
+            //optLog = 2;
+            //intent.putExtra("optlog",optLog);
             intent.putExtra("correo",correoR);
             intent.putExtra("password",contrasenaR);
             intent.putExtra("nameG",nameG);

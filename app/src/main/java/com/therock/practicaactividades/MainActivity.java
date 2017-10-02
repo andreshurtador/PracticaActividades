@@ -1,5 +1,6 @@
 package com.therock.practicaactividades;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
@@ -28,8 +29,8 @@ public class MainActivity extends AppCompatActivity{
     //3.correo y contrasena
     private String correoR, contrasenaR,correoG,nameG,urlG,nameF,urlF,correoF;
     GoogleApiClient mGoogleApiClient;
-    //SharedPreferences prefs;
-    //SharedPreferences.Editor editor;
+    SharedPreferences prefs;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity{
         if(extras !=null) {
             correoR = extras.getString("correo");
             contrasenaR = extras.getString("password");
-            optLog = extras.getInt("optlog");
+            //optLog = extras.getInt("optlog");
             nameG = extras.getString("nameG");
             correoG = extras.getString("correoG");
             urlG = extras.getString("urlG");
@@ -81,13 +82,18 @@ public class MainActivity extends AppCompatActivity{
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         final Intent intent;
+        prefs = getSharedPreferences("SP" , Context.MODE_PRIVATE);
+        editor = prefs.edit();
         switch (id) {
 
             case R.id.mPerfil:
+                prefs = getSharedPreferences("SP", Context.MODE_PRIVATE);
+                editor = prefs.edit();
+                editor.putInt("optlog",optLog);
                 intent = new Intent(MainActivity.this, ProfileActivity.class);
                 intent.putExtra("correo",correoR);
                 intent.putExtra("password",contrasenaR);
-                intent.putExtra("optlog",optLog);
+                //intent.putExtra("optlog",optLog);
                 intent.putExtra("nameG",nameG);
                 intent.putExtra("correoG",correoG);
                 intent.putExtra("urlG",urlG);
@@ -101,6 +107,10 @@ public class MainActivity extends AppCompatActivity{
             case R.id.mcerrar:
                 intent = new Intent(MainActivity.this, LoginActivity.class);
                 if(optLog==1){
+                    prefs = getSharedPreferences("SP", Context.MODE_PRIVATE);
+                    editor = prefs.edit();
+                    editor.putInt("optlog",0);
+                    editor.commit();
                     LoginManager.getInstance().logOut();
                     intent.putExtra("correo",correoR);
                     intent.putExtra("password",contrasenaR);
@@ -109,6 +119,11 @@ public class MainActivity extends AppCompatActivity{
                     finish();
                 }else if(optLog==2){
                     //cerrar sesion google
+                    prefs = getSharedPreferences("SP",Context.MODE_PRIVATE);
+                    editor = prefs.edit();
+                    //almacenamos el valor de optLog
+                    editor.putInt("optlog",0);
+                    editor.commit();
                     Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(new ResultCallback<Status>() {
                         @Override
                         public void onResult(@NonNull Status status) {
@@ -125,6 +140,11 @@ public class MainActivity extends AppCompatActivity{
                         }
                     });
             }else if(optLog==3){
+                    prefs = getSharedPreferences("SP",Context.MODE_PRIVATE);
+                    editor = prefs.edit();
+                    //almacenamos el valor de optLog
+                    editor.putInt("optlog",0);
+                    editor.commit();
                     intent.putExtra("correo",correoR);
                     intent.putExtra("password",contrasenaR);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
