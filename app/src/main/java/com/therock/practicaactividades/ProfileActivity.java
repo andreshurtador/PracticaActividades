@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -70,9 +71,6 @@ public class ProfileActivity extends AppCompatActivity implements GoogleApiClien
 
         profilePicture = (ImageView) findViewById(R.id.imageView);
 
-        prefs = getSharedPreferences("SP" , Context.MODE_PRIVATE);
-        editor = prefs.edit();
-        final int optLog = prefs.getInt("optlog",0);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -89,7 +87,9 @@ public class ProfileActivity extends AppCompatActivity implements GoogleApiClien
                 })
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
-
+        prefs = getSharedPreferences("SP", Context.MODE_PRIVATE);
+        editor = prefs.edit();
+        final int optLog = prefs.getInt("optlog", 0);
 
         if (optLog == 1) {
             tCorreoProfile.setText("Usuario :" + "\n" + nameF);
@@ -98,6 +98,8 @@ public class ProfileActivity extends AppCompatActivity implements GoogleApiClien
         } else if (optLog == 2) {
             tCorreoProfile.setText("Usuario :" + "\n" + nameG);
             tContrasenaProfile.setText("Correo:" + "\n" + correoG);
+            Toast.makeText(this,urlG,Toast.LENGTH_SHORT).show();
+            Log.d("googleandres",urlG);
             Glide.with(this).load(urlG).crossFade().placeholder(R.drawable.imagen_perfil).into(profilePicture);
         } else if (optLog == 3) {
             tCorreoProfile.setText("Usuario :" + "\n" + correoR);
@@ -150,35 +152,39 @@ public class ProfileActivity extends AppCompatActivity implements GoogleApiClien
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        final Intent intent;
+        Intent intent;
+        prefs = getSharedPreferences("SP", Context.MODE_PRIVATE);
+        editor = prefs.edit();
+        final int optLog = prefs.getInt("optlog", 0);
         switch (id) {
             case R.id.mprincipal:
                 prefs = getSharedPreferences("SP", Context.MODE_PRIVATE);
                 editor = prefs.edit();
                 //almacenamos el valor de optLog
-                editor.putInt("optlog",optLog);
-                intent = new Intent(ProfileActivity.this, MainActivity.class);
-                intent.putExtra("correo",correoR);
-                intent.putExtra("password",contrasenaR);
-               // intent.putExtra("optlog",optLog);
-                intent.putExtra("nameG",nameG);
-                intent.putExtra("correoG",correoG);
-                intent.putExtra("urlG",urlG);
-                intent.putExtra("nameF",nameF);
-                intent.putExtra("urlF",urlF);
-                intent.putExtra("correoF",correoF);
+                editor.putInt("optlog", optLog);
+                intent  = new Intent(ProfileActivity.this, LoginActivity.class);
+                intent.putExtra("correo", correoR);
+                intent.putExtra("password", contrasenaR);
+                // intent.putExtra("optlog",optLog);
+                intent.putExtra("nameG", nameG);
+                intent.putExtra("correoG", correoG);
+                intent.putExtra("urlG", urlG);
+                intent.putExtra("nameF", nameF);
+                intent.putExtra("urlF", urlF);
+                intent.putExtra("correoF", correoF);
                 startActivity(intent);
                 finish();
                 break;
 
             case R.id.mcerrar:
 
-                intent = new Intent(ProfileActivity.this, LoginActivity.class);
+
                 if (optLog == 1) {
-                    prefs = getSharedPreferences("SP",Context.MODE_PRIVATE);
+                    intent  = new Intent(ProfileActivity.this, LoginActivity.class);
+                    prefs = getSharedPreferences("SP", Context.MODE_PRIVATE);
                     editor = prefs.edit();
                     //almacenamos el valor de optLog
-                    editor.putInt("optlog",0);
+                    editor.putInt("optlog", 0);
                     editor.commit();
                     LoginManager.getInstance().logOut();
                     intent.putExtra("correo", correoR);
@@ -187,15 +193,16 @@ public class ProfileActivity extends AppCompatActivity implements GoogleApiClien
                     startActivity(intent);
                 } else if (optLog == 2) {
                     //cerrar sesion google
-                    prefs = getSharedPreferences("SP",Context.MODE_PRIVATE);
+                    prefs = getSharedPreferences("SP", Context.MODE_PRIVATE);
                     editor = prefs.edit();
                     //almacenamos el valor de optLog
-                    editor.putInt("optlog",0);
+                    editor.putInt("optlog", 0);
                     editor.commit();
                     Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(new ResultCallback<Status>() {
                         @Override
                         public void onResult(@NonNull Status status) {
                             if (status.isSuccess()) {
+                                Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
                                 intent.putExtra("correo", correoR);
                                 intent.putExtra("password", contrasenaR);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -203,26 +210,31 @@ public class ProfileActivity extends AppCompatActivity implements GoogleApiClien
                             }
                         }
                     });
-                    if (optLog == 3) {
-                        intent.putExtra("correo", correoR);
-                        intent.putExtra("password", contrasenaR);
-                        prefs = getSharedPreferences("SP",Context.MODE_PRIVATE);
-                        editor = prefs.edit();
-                        //almacenamos el valor de optLog
-                        editor.putInt("optlog",0);
-                        editor.commit();
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                    }
-                    finish();
-                    break;
+                } else if (optLog == 3) {
+                    intent = new Intent(ProfileActivity.this, LoginActivity.class);
+                    intent.putExtra("correo", correoR);
+                    intent.putExtra("password", contrasenaR);
+                    prefs = getSharedPreferences("SP", Context.MODE_PRIVATE);
+                    editor = prefs.edit();
+                    //almacenamos el valor de optLog
+                    editor.putInt("optlog", 0);
+                    editor.commit();
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
                 }
-
-            default:
+                finish();
                 break;
-        }
-        return super.onOptionsItemSelected(item);
+
+
+
+        default:
+        break;
     }
+        return super.
+
+    onOptionsItemSelected(item);
+
+}
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {

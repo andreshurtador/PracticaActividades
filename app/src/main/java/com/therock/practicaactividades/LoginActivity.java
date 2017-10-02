@@ -251,6 +251,7 @@ public class LoginActivity extends AppCompatActivity {
             editor = prefs.edit();
             //almacenamos el valor de optLog
             editor.putInt("optlog",2);
+            editor.commit();
             //optLog = 2;
             //intent.putExtra("optlog",optLog);
             intent.putExtra("correo",correoR);

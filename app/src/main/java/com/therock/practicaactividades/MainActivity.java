@@ -84,12 +84,14 @@ public class MainActivity extends AppCompatActivity{
         final Intent intent;
         prefs = getSharedPreferences("SP" , Context.MODE_PRIVATE);
         editor = prefs.edit();
+        final int optLog = prefs.getInt("optlog",0);
         switch (id) {
 
             case R.id.mPerfil:
                 prefs = getSharedPreferences("SP", Context.MODE_PRIVATE);
                 editor = prefs.edit();
                 editor.putInt("optlog",optLog);
+
                 intent = new Intent(MainActivity.this, ProfileActivity.class);
                 intent.putExtra("correo",correoR);
                 intent.putExtra("password",contrasenaR);
